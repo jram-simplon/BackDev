@@ -25,7 +25,7 @@ include './static/database/dbconnect.php';
 echo 'Pseudo : '.$alias.'<br>';
 echo 'Status : '.$status.'<br>';
 echo 'Email : '.$mail.'<br>';
-echo 'Status : '.$xp.'<br>';
+echo 'XP : '.$xp.'<br>';
 echo 'Inscrit depuis le : '.$since;
 echo '<img src=./static/uploads/avatars/'.$avatar.'><br>';
 
