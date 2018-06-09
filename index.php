@@ -1,13 +1,10 @@
-
-
-
 <?php
-
-// A mettre en début de chaque page
 
 session_start();
 
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -141,7 +138,7 @@ echo '<span onclick="toggleForm()" class="topbutton">
 
 			}else{
 
-			echo '<span class="topbutton"><a href=./profil.php class="toplien">'.$_SESSION['login'].'</a></span>';
+			echo '<span class="topbutton"><a href=./profil.php class="toplien">'.$_SESSION['alias'].'</a></span>';
 
 			}
 

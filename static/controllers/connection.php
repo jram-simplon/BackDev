@@ -1,10 +1,10 @@
 <?php
 
+SESSION_START();
+
 // connection to the database
 
-
-
-require_once '../database/dbconnect.php';
+include '../database/dbconnect.php';
 
 // connection test 
 
@@ -17,6 +17,9 @@ require_once '../database/dbconnect.php';
 // 	echo $user['surname'].'<br>';
 // 
 // }
+
+
+/// ???? A VERIF
 $alias       = htmlspecialchars(preg_replace('/ /', '',$_POST['alias']));
 
 
@@ -33,7 +36,7 @@ if (    	isset($_POST['mail'])  AND !empty($_POST['mail'])
 	){
 
 
-$mail       = htmlspecialchars(preg_replace('/ /', '',$_POST['mail']));
+$mail        = htmlspecialchars(strtolower(preg_replace('/ /', '',$_POST['mail'])));
 
 $pwd        = htmlspecialchars($_POST['pwd']);
 
@@ -53,18 +56,20 @@ $checkpwd = $query->fetchColumn();
 
 			if (password_verify($pwd, $checkpwd)) {
 
-				echo 'ok good<br>';
-
-$req        = 'SELECT alias, id_user, pwr FROM users WHERE mail = "'.$mail.'"';
+$req        = 'SELECT * FROM users WHERE mail = "'.$mail.'"';
 $query      = $db->prepare($req);
 $query      ->execute();
 $user       = $query->fetch();
 
-				session_start ();
+				SESSION_START();
 
-				$_SESSION['login']   = $user['alias'];
+				$_SESSION['alias']   = $user['alias'];
 				$_SESSION['id_user'] = $user['id_user'];
 				$_SESSION['pwr']     = $user['pwr'];
+				$_SESSION['mail']    = $user['mail'];
+				$_SESSION['avatar']  = $user['avatar'];
+				$_SESSION['since']   = $user['inscription_date'];
+				$_SESSION['xp']      = $user['xp'];
 
        		header ('location: ../../index.php');
 

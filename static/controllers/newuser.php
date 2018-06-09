@@ -34,7 +34,7 @@ if (    	isset($_POST['alias'])   AND !empty($_POST['alias'])
 
 
 $alias       = htmlspecialchars(preg_replace('/ /', '',$_POST['alias']));
-$mail        = htmlspecialchars(preg_replace('/ /', '',$_POST['mail']));
+$mail        = htmlspecialchars(strtolower(preg_replace('/ /', '',$_POST['mail'])));
 $pwd         = htmlspecialchars($_POST['pwd']);
 $pw2         = htmlspecialchars($_POST['pwd2']);
 $pwr         = "1";
@@ -135,11 +135,25 @@ if ($verifalias ->fetchColumn() != 0) {
 
  	// echo 'Bienvenue à toi '.$alias.' parmis nous !';
 
- 	session_start ();
+ 	// MVC FAIRE UNE FONCTION A LA FIN
 
-	$_SESSION['login'] = $alias;
+$req        = 'SELECT * FROM users WHERE mail = "'.$mail.'"';
+$query      = $db->prepare($req);
+$query      ->execute();
+$user       = $query->fetch();
 
- 	header ('location: ../../index.php');
+				SESSION_START();
+
+				$_SESSION['alias']   = $user['alias'];
+				$_SESSION['id_user'] = $user['id_user'];
+				$_SESSION['pwr']     = $user['pwr'];
+				$_SESSION['mail']    = $user['mail'];
+				$_SESSION['avatar']  = $user['avatar'];
+				$_SESSION['since']   = $user['inscription_date'];
+				$_SESSION['xp']      = $user['xp'];
+
+       		header ('location: ../../index.php');
+
 
 }
 

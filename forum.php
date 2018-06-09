@@ -1,6 +1,8 @@
 <?php
 
-require_once './static/controllers/checklogin.php'
+// Page de verif de la Session, si Session inexistante -> redirection vers index.html
+
+include './static/controllers/checklogin.php';
 
 ?>
 
@@ -35,23 +37,114 @@ require_once './static/controllers/checklogin.php'
 
 
 
+	
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+
+<link rel="stylesheet" type="text/css" href="static/css/index.css">
+
+<meta charset="utf-8">
+
+
+
+	<title>forum</title>
+
+</head>
+
+
+
+<body>
+
+<form id="newuser" action="./static/controllers/newuser.php" method="post" enctype="multipart/form-data">
+
+
+
+<div>Alias   :</div><input type="text" name="alias"></br>
+
+<div>Email   :</div><input type="text" name="mail"></br>
+
+<div>Password:</div><input type="password" name="pwd"></br>
+
+<div>Retapez votre Password:</div><input type="password" name="pwd2"></br>
+
+<div>Importez votre Avatar :</div><input type="file" name="avatar" /><br/>
+
+
+
+
+
+<br><input type="submit" name="submit" value="Valider">
+
+</form>
+
+
+
+
+
+<form id="userconnection" action="./static/controllers/connection.php" method="post">
+
+
+
+<div>Email   :</div><input type="text" name="mail"></br>
+
+
+
+<div>Password:</div><input type="password" name="pwd"></br>
+
+
+
+<br><input type="submit" name="submit" value="Se connecter">
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
 	<div id="top">
 
 		<div id="topinside">
 
 			<div id="topgauche">
 
-				<img id="imglogo" src="static/img/forum/sheeks-logo.png">
+				<img id="imglogo" src="static/img/index/sheeks-logo.png">
+
+
+
+
 
 			</div>
 
-			<div id="topdroite">
-
+		
+<div id="topdroite">
 				<a href="" class="toplien">
 
-				<span class="topbutton">PORTAIL</span>
+				<span class="topbutton">
+						
+
+		PORTAIL
+	
+				</span>
 
 				</a>
+
+
+
+
 
 
 
@@ -63,19 +156,44 @@ require_once './static/controllers/checklogin.php'
 
 
 
-				<a href="" class="toplien">
+			
 
-				<span class="topbutton">S'IDENTIFIER</span>
+		
+			<?php
 
-				</a>
+			// ONGLET TOP MENU S'INSCRIRE / NOM DU LOGIN
+
+			if (empty($_SESSION)) {
+echo '<span onclick="toggleForm()" class="topbutton">
+			S\'INSCRIRE</span>';
+
+			}else{
+
+			echo '<span class="topbutton"><a href=./profil.php class="toplien">'.$_SESSION['login'].'</a></span>';
+
+			}
+
+			?>
+	
+
+		<?php
+
+					// ONGLET TOP MENU SE CONNECTER / SE DECONNECTER
+
+			if (empty($_SESSION)) {
+
+			echo '<span class="topbutton" onclick="toggleForm2()" class="topbutton">SE CONNECTER</span>';
+
+			}else{
+
+			echo '<span class="topbutton"><a href="./static/controllers/logout.php" class="toplien">SE DECONNECTER</a></span>';
 
 
 
-				<a href="" class="toplien">
+			} 
 
-				<span class="topbutton">S'INSCRIRE</span>
+			?>
 
-				</a>
 
 
 
@@ -88,6 +206,16 @@ require_once './static/controllers/checklogin.php'
 
 
 			</div>
+
+		</div>
+
+	</div>
+
+	<div id="under">
+
+		<div id="underinside d-block">
+
+			
 
 		</div>
 
