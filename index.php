@@ -35,7 +35,7 @@ session_start();
 
 <body>
 
-<form id="newuser" action="./static/controllers/users.php" method="post" enctype="multipart/form-data">
+<form id="newuser" action="./static/controllers/newuser.php" method="post" enctype="multipart/form-data">
 
 
 
@@ -136,12 +136,12 @@ session_start();
 			// ONGLET TOP MENU S'INSCRIRE / NOM DU LOGIN
 
 			if (empty($_SESSION)) {
-echo '<span class="topbutton" onclick="toggleForm()" class="topbutton">
+echo '<span onclick="toggleForm()" class="topbutton">
 			S\'INSCRIRE</span>';
 
 			}else{
 
-			echo '<span class="topbutton">'.$_SESSION['login'].'</span>';
+			echo '<span class="topbutton"><a href=./profil.php class="toplien">'.$_SESSION['login'].'</a></span>';
 
 			}
 

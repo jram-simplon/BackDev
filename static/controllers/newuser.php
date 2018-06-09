@@ -3,7 +3,7 @@
 
 // connection to the database
 
- include '../database/connection.php';
+require_once '../database/dbconnect.php';
 
 // connection test 
 
@@ -37,7 +37,7 @@ $alias       = htmlspecialchars(preg_replace('/ /', '',$_POST['alias']));
 $mail        = htmlspecialchars(preg_replace('/ /', '',$_POST['mail']));
 $pwd         = htmlspecialchars($_POST['pwd']);
 $pw2         = htmlspecialchars($_POST['pwd2']);
-$pwr         = "0";
+$pwr         = "1";
 $xp          = "Newbie";
 $since       = date("Y-m-d");
 $pwdhash     = password_hash($pwd, PASSWORD_DEFAULT);
@@ -133,7 +133,7 @@ if ($verifalias ->fetchColumn() != 0) {
  	}
 
 
- 	echo 'Bienvenue à toi '.$alias.' parmis nous !';
+ 	// echo 'Bienvenue à toi '.$alias.' parmis nous !';
 
  	session_start ();
 

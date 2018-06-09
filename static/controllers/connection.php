@@ -4,7 +4,7 @@
 
 
 
-require_once '../database/connection.php';
+require_once '../database/dbconnect.php';
 
 // connection test 
 
@@ -55,15 +55,16 @@ $checkpwd = $query->fetchColumn();
 
 				echo 'ok good<br>';
 
-$req        = 'SELECT alias FROM users WHERE mail = "'.$mail.'"';
-$query      = $db->query($req);
-$alias = $query->fetchColumn();
+$req        = 'SELECT alias, id_user, pwr FROM users WHERE mail = "'.$mail.'"';
+$query      = $db->prepare($req);
+$query      ->execute();
+$user       = $query->fetch();
 
 				session_start ();
 
-				$_SESSION['login'] = $alias;
-
-				echo $alias;
+				$_SESSION['login']   = $user['alias'];
+				$_SESSION['id_user'] = $user['id_user'];
+				$_SESSION['pwr']     = $user['pwr'];
 
        		header ('location: ../../index.php');
 
@@ -74,7 +75,7 @@ $alias = $query->fetchColumn();
 
 		} else {
 
-			echo 'Login incorrect !';
+			echo 'Email incorrect !';
 		
 	}
 
