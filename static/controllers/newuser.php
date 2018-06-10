@@ -51,7 +51,7 @@ $avatar_default  = "avatar_default.jpg";
 $avatar          = $_FILES['avatar'];
 $avatar_name     = preg_replace('/ /', '',$_FILES['avatar']['name']);
 $avatar_type     = pathinfo($avatar_name, PATHINFO_EXTENSION);
-$avatar_dbname   = $alias.'_avatar.'.$avatar_type;
+$avatar_dbname   = strtolower($alias.'_avatar.'.$avatar_type);
 $avatar_size     = $_FILES['avatar']['size'];
 $autorised_type  = array('jpg', 'jpeg', 'svg', 'png');
 
@@ -108,7 +108,7 @@ if ($verifalias ->fetchColumn() != 0) {
 
  	if (isset($avatar) AND $_FILES['avatar']['error'] == 0) {
 
- 		if($avatar_size <= 500000) {
+ 		if($avatar_size <= 100000) {
 
  			if ((in_array($avatar_type, $autorised_type))) { 
 

@@ -3,8 +3,6 @@
 
 include './checklogin.php';
 
-
-
 /////////////////////// MAIL CHANGE BEGIN
 
 $mail1        = htmlspecialchars(strtolower(preg_replace('/ /', '',$_POST['mail1'])));
@@ -111,6 +109,9 @@ if (password_verify($pwd, $checkpwd)) {
  										":newpwd"  =>  $pwdhash,
  			));
 
+ 		echo 'Password changé !';
+ 		header ('location: ../../profil.php');
+
 		
 	}else{
 
@@ -121,11 +122,71 @@ if (password_verify($pwd, $checkpwd)) {
 
 }
 
-
-
 /////////////////////////// PASSWORD CHANGE END
 
+////////////////////////// AVATAR CHANGE BEGIN
 
+
+// -> FONCTION A MODIF MVC A LA FIN
+
+// Variables réservée à l'ajout d'avatar	
+
+$oldavatar = $avatar;
+
+if (isset($_POST['avatarchange'])) {
+
+$avatar_default  = "avatar_default.jpg";
+$avatar          = $_FILES['avatar'];
+$avatar_name     = preg_replace('/ /', '',$_FILES['avatar']['name']);
+$avatar_type     = pathinfo($avatar_name, PATHINFO_EXTENSION);
+$avatar_dbname   = strtolower($alias.'_avatar.'.$avatar_type);
+$avatar_size     = $_FILES['avatar']['size'];
+$autorised_type  = array('jpg', 'jpeg', 'svg', 'png');
+
+
+ 	if (isset($avatar) AND $_FILES['avatar']['error'] == 0) {
+
+ 		if($avatar_size <= 100000) {
+
+ 			if ((in_array($avatar_type, $autorised_type))) { 
+
+
+
+ 			unlink ('../uploads/avatars/'.$oldavatar);
+
+ 			move_uploaded_file($_FILES['avatar']['tmp_name'], '../uploads/avatars/'.basename($avatar_dbname));
+
+
+ 			$av_change  = 'UPDATE users SET avatar = :newavatar WHERE alias = :alias';
+ 			$av_change2 = $db->prepare($av_change);
+ 			$requete2   = $av_change2->execute(array(
+
+ 													":alias"      => $alias,
+ 													":newavatar"  =>  $avatar_dbname,
+
+ 			));
+
+ 			echo 'Avatar Changé !';
+
+ 			$_SESSION['avatar'] = $avatar_dbname;
+			header ('location: ../../profil.php');
+
+
+ 			}			
+
+ 		} 
+
+ 		echo "Fichier trop volumineux !";
+ 		header ('location: ../../profil.php');
+
+ 	}
+
+ 	echo "Aucun avatar sélectionné !";
+ 	header ('location: ../../profil.php');
+
+ }
+
+////////////////////////// AVATAR CHANGE END
 
 
 ?>

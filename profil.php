@@ -26,7 +26,7 @@ echo 'Pseudo : '.$alias.'<br>';
 echo 'Status : '.$status.'<br>';
 echo 'Email : '.$mail.'<br>';
 echo 'XP : '.$xp.'<br>';
-echo 'Inscrit depuis le : '.$since;
+echo 'Inscrite depuis le : '.$since;
 echo '<img src=./static/uploads/avatars/'.$avatar.'><br>';
 
 
@@ -47,12 +47,24 @@ echo '<img src=./static/uploads/avatars/'.$avatar.'><br>';
         <fieldset><legend>Password</legend>
 		<form action="./static/controllers/editprofil.php" method="post">
         <label for="actualpwd">Password Actuel :</label>
-        <input type="text" name="pwd" id="pwd" /><br />
+        <input type="password" name="pwd" id="pwd" /><br />
         <label for="newpwd">Nouveau Password :</label>
-        <input type="text" name="pwd1" id="pwd1" /><br />
+        <input type="password" name="pwd1" id="pwd1" /><br />
         <label for="confirm">Confirmer le nouveau Password: </label>
-        <input type="text" name="pwd2" id="pwd2"  />
+        <input type="password" name="pwd2" id="pwd2"  />
        <input type="submit" name="changepwd" value="Valider" >
+   </form>
+        </fieldset>
+
+
+        <br>
+
+
+        <fieldset><legend>Avatar</legend>
+		<form action="./static/controllers/editprofil.php" method="post" enctype="multipart/form-data">
+        <label for="avatar">Changez votre avatar :</label>
+      	<input type="file" name="avatar" /><br/>
+       <input type="submit" name="avatarchange" value="Valider" >
    </form>
         </fieldset>
 
